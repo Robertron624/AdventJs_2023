@@ -48,32 +48,19 @@ function cyberReindeer(road, time) {
                 }
             });
         }
-        
+
         let nextChar = roadArray[carPosition + 1];
 
-        // Si el trineo tiene delante un camino libre, avanza
-        if (nextChar === ".") {
-
-            if(previousChar) {
-                roadArray[carPosition] = previousChar;
-                previousChar = null;
-            }
-            else {
-                roadArray[carPosition] = ".";
-            }
+        if(nextChar !== "|") {
+            roadArray[carPosition] = previousChar ?? nextChar;
             roadArray[carPosition + 1] = "S";
-            carPosition++;
-        } else if (nextChar === "*") {
-            // Si el trineo tiene delante una barrera abierta, avanza
-            roadArray[carPosition] = ".";
-            roadArray[carPosition + 1] = "S";
-            previousChar = "*"
+            previousChar = nextChar;
             carPosition++;
         }
 
         roadStates.push(roadArray.join(""));
     }
-    
+
     return roadStates;
 }
 
