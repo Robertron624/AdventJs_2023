@@ -40,13 +40,7 @@ function cyberReindeer(road, time) {
     roadStates.push(road);
     for (let i = 1; i < time; i++) {
         if (i == 5) {
-            roadArray = roadArray.map((char) => {
-                if (char === "|") {
-                    return "*";
-                } else {
-                    return char;
-                }
-            });
+            roadArray = roadArray.map((char) => (char === "|" ? "*" : char));
         }
 
         let nextChar = roadArray[carPosition + 1];

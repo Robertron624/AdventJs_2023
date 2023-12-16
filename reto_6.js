@@ -36,9 +36,26 @@ const movements5 = ">***>"
 const result5 = maxDistance(movements5)
 console.log(result5) // -> 5
 
+// More examples:
+
+const movements6 = '>>*<<'
+const result6 = maxDistance(movements6)
+console.log(result6) // -> 1
+
+const movements7 = '><><'
+const result7 = maxDistance(movements7)
+console.log(result7) // -> 0
+
+const movements8 = '***'
+const result8 = maxDistance(movements8)
+console.log(result8) // -> 3
+
+
 function maxDistance(movements) {
     let steps = 0;
+    let asteriskCount = 0;
 
+    // Iteramos para contar los pasos y contar la cantidad de asteriscos
     for (let i = 0; i < movements.length; i++) {
         const movement = movements[i];
 
@@ -47,19 +64,79 @@ function maxDistance(movements) {
         } else if (movement === '<') {
             steps -= 1;
         } else if (movement === '*') {
+            asteriskCount += 1;
+        }
+    }
 
+    // Ahora, determinamos qué movimiento realizar por cada asterisco
+    for (let i = 0; i < movements.length; i++) {
+        const movement = movements[i];
+
+        if (movement === '*') {
+            // Se puede elegir '>' o '<' basado en qué dirección conviene más
             let resultPlusOne = Math.abs(steps + 1);
             let resultMinusOne = Math.abs(steps - 1);
 
-            if (resultPlusOne > resultMinusOne) {
-                // console.log("* detected, going right (+1)")
+            // Si el asterisco puede aumentar la distancia, lo hacemos
+            if (resultPlusOne >= resultMinusOne) {
                 steps += 1;
             } else {
-                // console.log("* detected, going left (-1)")
                 steps -= 1;
+            }
+
+            // Reducimos el número de asteriscos restantes
+            asteriskCount -= 1;
+
+            // Si ya no hay más asteriscos, salimos del bucle
+            if (asteriskCount === 0) {
+                break;
             }
         }
     }
 
     return Math.abs(steps);
-};
+}
+
+
+// Otra forma
+
+// function maxDistance(movements) {
+//     let steps = 0;
+//     let asteriskCount = 0;
+//     let asteriskIndex = [];
+
+//     // Iteramos para contar los pasos, la cantidad de asteriscos y sus índices
+//     for (let i = 0; i < movements.length; i++) {
+//         const movement = movements[i];
+
+//         if (movement === '>') {
+//             steps += 1;
+//         } else if (movement === '<') {
+//             steps -= 1;
+//         } else if (movement === '*') {
+//             asteriskCount += 1;
+//             asteriskIndex.push(i);
+//         }
+//     }
+
+//     // Determinamos qué movimiento realizar por cada asterisco
+//     for (let i = 0; i < asteriskIndex.length; i++) {
+//         const currentIndex = asteriskIndex[i];
+//         const resultPlusOne = Math.abs(steps + 1);
+//         const resultMinusOne = Math.abs(steps - 1);
+
+//         if (resultPlusOne >= resultMinusOne) {
+//             steps += 1;
+//         } else {
+//             steps -= 1;
+//         }
+
+//         asteriskCount -= 1;
+
+//         if (asteriskCount === 0) {
+//             break;
+//         }
+//     }
+
+//     return Math.abs(steps);
+// }
