@@ -25,7 +25,7 @@
 function createChristmasTree(ornaments, height) {
     let tree = '';
     let leftSpaces = height - 1;
-    let ornamentsInLine = 1;
+    
     
     let pointer = 0;
 
@@ -54,13 +54,10 @@ function createChristmasTree(ornaments, height) {
         tree += ornamentsLine;
 
         leftSpaces--;
-        ornamentsInLine++;
+        
     }
 
-
-    treeBase = `${' '.repeat(height-1)}|${'\n'}`;
-
-    tree += treeBase;
+    tree += `${' '.repeat(height-1)}|${'\n'}`;
 
     return tree;
 }
